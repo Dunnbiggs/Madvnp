@@ -290,7 +290,7 @@ button {
 }
 
 .about-image {
-  background-color: #E0E0E0;
+  background-color: transparent;
   border-radius: 50%;
   overflow: hidden;
   aspect-ratio: 1/1;

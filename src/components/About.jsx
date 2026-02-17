@@ -6,7 +6,7 @@ const About = () => {
             <div className="about-grid">
                 <div className="about-image">
                     <img
-                        src="/michael-marshall.jpg"
+                        src="/michael-marshall.png"
                         alt="Michael Marshall, PMHNP"
                         className="profile-photo"
                     />
