@@ -5,7 +5,10 @@ const Footer = () => {
         <footer id="contact" className="footer">
             <div className="container footer-grid">
                 <div className="footer-info">
-                    <h3>Michael Marshall, PMHNP</h3>
+                    <div className="footer-brand">
+                        <img src="/logo.jpg" alt="Logo" className="footer-logo" />
+                        <h3>Michael Marshall, PMHNP</h3>
+                    </div>
                     <p>Compassionate telepsychiatry for California.</p>
                 </div>
                 <div className="footer-hours">

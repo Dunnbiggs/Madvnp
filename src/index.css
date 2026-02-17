@@ -152,10 +152,36 @@ button {
   padding-bottom: var(--space-md);
 }
 
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 .header-logo h1 {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-accent-sage);
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.footer-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    border-radius: var(--radius-sm); /* Optional: slight rounding if resizing introduces artifacts */
 }
 
 .header-nav {

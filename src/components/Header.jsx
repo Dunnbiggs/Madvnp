@@ -4,6 +4,7 @@ const Header = () => {
     return (
         <header className="header container">
             <div className="header-logo">
+                <img src="/logo.jpg" alt="Michael Marshall, PMHNP Logo" className="logo" />
                 <h1>Michael Marshall, <span className="text-muted">PMHNP</span></h1>
             </div>
             <nav className="header-nav">
