@@ -10,7 +10,7 @@ const Hero = () => {
                     Providing anxiety, depression, and ADHD treatment from the comfort of your home.
                 </p>
                 <div className="hero-ctas">
-                    <a href="https://provider.kara.care/michael-marshall" className="btn btn-primary">Book a Telehealth Appointment</a>
+                    <a href="https://www.tebra.com/care/provider/michael-marshall-aprn-pmhnp-1245563543" className="btn btn-primary">Book a Telehealth Appointment</a>
                     <a href="#approach" className="btn btn-secondary">Learn About My Approach</a>
                 </div>
             </div>
