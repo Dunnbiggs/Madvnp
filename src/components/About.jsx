@@ -5,8 +5,11 @@ const About = () => {
         <section id="about" className="section container">
             <div className="about-grid">
                 <div className="about-image">
-                    {/* Placeholder for Michael's photo */}
-                    <div className="image-placeholder">Michael Marshall, PMHNP</div>
+                    <img
+                        src="/michael-marshall.jpg"
+                        alt="Michael Marshall, PMHNP"
+                        className="profile-photo"
+                    />
                 </div>
                 <div className="about-content">
                     <h2 className="section-title">Meet Michael Marshall</h2>
