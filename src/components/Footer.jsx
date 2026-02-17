@@ -10,6 +10,7 @@ const Footer = () => {
                         <h3>Michael Marshall, PMHNP</h3>
                     </div>
                     <p>Compassionate telepsychiatry for California.</p>
+                    <p className="license-text-footer">License #95028122</p>
                 </div>
                 <div className="footer-hours">
                     <h4>Office Hours</h4>

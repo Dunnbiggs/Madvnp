@@ -416,6 +416,19 @@ button {
   margin-bottom: 0.5rem;
 }
 
+.license-text {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  margin-top: -2px;
+}
+
+.license-text-footer {
+  font-size: 0.85rem;
+  color: #9CA3AF;
+  margin-top: 0.25rem;
+}
+
 .footer-link {
   color: var(--color-accent-blue);
   text-decoration: underline;

@@ -5,7 +5,10 @@ const Header = () => {
         <header className="header container">
             <div className="header-logo">
                 <img src="/logo.jpg" alt="Michael Marshall, PMHNP Logo" className="logo" />
-                <h1>Michael Marshall, <span className="text-muted">PMHNP</span></h1>
+                <div className="header-text">
+                    <h1>Michael Marshall, <span className="text-muted">PMHNP</span></h1>
+                    <p className="license-text">License #95028122</p>
+                </div>
             </div>
             <nav className="header-nav">
                 <a href="#about">About</a>
