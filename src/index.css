@@ -291,9 +291,13 @@ button {
 
 .about-image {
   background-color: #E0E0E0;
-  border-radius: var(--radius-md);
+  border-radius: 50%;
   overflow: hidden;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1;
+  max-width: 400px;
+  /* Ensure it doesn't get too huge */
+  margin: 0 auto;
+  /* Center it */
   display: flex;
   align-items: center;
   justify-content: center;
