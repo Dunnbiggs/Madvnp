@@ -7,7 +7,7 @@ const Footer = () => {
                 <div className="footer-info">
                     <div className="footer-brand">
                         <img src="/logo.jpg" alt="Logo" className="footer-logo" />
-                        <h3>Michael Marshall, PMHNP</h3>
+                        <h3>Michael Marshall, PMHNP-BC</h3>
                     </div>
                     <p>Compassionate telepsychiatry for California.</p>
                     <p className="license-text-footer">License #95028122</p>
@@ -27,7 +27,7 @@ const Footer = () => {
                 <p className="emergency-note">
                     <strong>If you are experiencing a medical emergency or crisis, please dial 911 or call/text 988 immediately.</strong>
                 </p>
-                <p>&copy; {new Date().getFullYear()} Michael Marshall, PMHNP. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Michael Marshall, PMHNP-BC. All rights reserved.</p>
             </div>
         </footer>
     )

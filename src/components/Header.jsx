@@ -4,9 +4,9 @@ const Header = () => {
     return (
         <header className="header container">
             <div className="header-logo">
-                <img src="/logo.jpg" alt="Michael Marshall, PMHNP Logo" className="logo" />
+                <img src="/logo.jpg" alt="Michael Marshall, PMHNP-BC Logo" className="logo" />
                 <div className="header-text">
-                    <h1>Michael Marshall, <span className="text-muted">PMHNP</span></h1>
+                    <h1>Michael Marshall, <span className="text-muted">PMHNP-BC</span></h1>
                     <p className="license-text">License #95028122</p>
                 </div>
             </div>
