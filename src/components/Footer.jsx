@@ -27,7 +27,7 @@ const Footer = () => {
                 <p className="emergency-note">
                     <strong>If you are experiencing a medical emergency or crisis, please dial 911 or call/text 988 immediately.</strong>
                 </p>
-                <p>&copy; {new Date().getFullYear()} Michael Marshall, PMHNP-BC. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Marshall Advanced Nursing Practice PC. All rights reserved.</p>
             </div>
         </footer>
     )
