@@ -4,8 +4,8 @@ const Services = () => {
     return (
         <section id="approach" className="section bg-soft">
             <div className="container text-center">
-                <h2 className="section-title">How Care Is Provided</h2>
-                <p className="section-subtitle">Simple, secure, and supportive telehealth for all of California.</p>
+                <h2 className="section-title">A Partnership in Wellness</h2>
+                <p className="section-subtitle">Healing begins with being heard. Our approach moves beyond traditional prescribing to focus on the whole person. By combining diagnostic expertise with active listening, we partner with you to address the complexities of your disorder. Whether through medication management, lifestyle optimization, or a combination of both, we work collaboratively to build a sustainable path toward your goals. We provide the professional tools you need to thrive, delivered with the compassion you deserve.</p>
 
                 <div className="process-grid">
                     <div className="process-card">
