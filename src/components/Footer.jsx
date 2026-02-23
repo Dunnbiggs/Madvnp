@@ -20,7 +20,6 @@ const Footer = () => {
                 <div className="footer-contact">
                     <h4>Contact</h4>
                     <p>Phone: (909) 755-6610</p>
-                    <a href="https://portal.kareo.com/" className="footer-link">Patient Portal Login</a>
                 </div>
             </div>
             <div className="footer-bottom container text-center">

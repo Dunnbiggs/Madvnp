@@ -14,7 +14,9 @@ const Header = () => {
                 <a href="#about">About</a>
                 <a href="#approach">Approach</a>
                 <a href="#faq">FAQ</a>
-                <a href="https://d2oe0ra32qx05a.cloudfront.net/?practiceKey=k_1_106361" className="btn btn-primary">Book Appointment</a>
+                <a href="https://d2oe0ra32qx05a.cloudfront.net/?practiceKey=k_1_106361" className="btn btn-primary btn-flash">Book Appointment</a>
+                <a href="https://portal.kareo.com/" className="btn btn-primary btn-flash">Message Provider</a>
+                <a href="https://portal.kareo.com/">Patient Portal Login</a>
             </nav>
         </header>
     )

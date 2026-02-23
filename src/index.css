@@ -109,6 +109,16 @@ button {
   box-shadow: var(--shadow-hover);
 }
 
+.btn-flash {
+  animation: flashButton 2s infinite ease-in-out;
+}
+
+@keyframes flashButton {
+  0% { box-shadow: 0 0 5px rgba(141, 163, 153, 0.4); opacity: 1; text-shadow: none; }
+  50% { box-shadow: 0 0 20px rgba(141, 163, 153, 1); opacity: 0.85; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+  100% { box-shadow: 0 0 5px rgba(141, 163, 153, 0.4); opacity: 1; text-shadow: none; }
+}
+
 .btn-secondary {
   background-color: var(--color-white);
   color: var(--color-text-main);
