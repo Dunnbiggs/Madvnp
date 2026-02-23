@@ -14,7 +14,24 @@ sizes = [
 ]
 
 try:
-    img = Image.open(source_path)
+    img = Image.open(source_path).convert("RGBA")
+    
+    # Get bounding box of the non-transparent pixels
+    bbox = img.getbbox()
+    if bbox:
+        img = img.crop(bbox)
+        
+    # Scale up and make it a perfect square with max visibility (5% padding)
+    width, height = img.size
+    max_dim = max(width, height)
+    pad = int(max_dim * 0.05)
+    new_dim = max_dim + 2 * pad
+    
+    square_img = Image.new("RGBA", (new_dim, new_dim), (0, 0, 0, 0))
+    paste_x = pad + (max_dim - width) // 2
+    paste_y = pad + (max_dim - height) // 2
+    square_img.paste(img, (paste_x, paste_y))
+    img = square_img
     
     # Generate PNGs
     for w, h, name in sizes:
