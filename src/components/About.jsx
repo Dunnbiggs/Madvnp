@@ -9,6 +9,8 @@ const About = () => {
                         src="/michael-marshall.png"
                         alt="Michael Marshall, PMHNP"
                         className="profile-photo"
+                        width="1024"
+                        height="1024"
                     />
                 </div>
                 <div className="about-content">

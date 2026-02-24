@@ -6,7 +6,7 @@ const Footer = () => {
             <div className="container footer-grid">
                 <div className="footer-info">
                     <div className="footer-brand">
-                        <img src="/logo.jpg" alt="Logo" className="footer-logo" />
+                        <img src="/logo.jpg" alt="Logo" className="footer-logo" width="1024" height="1024" />
                         <h3>Michael Marshall, PMHNP-BC</h3>
                     </div>
                     <p>Compassionate telepsychiatry for California.</p>

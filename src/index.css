@@ -6,8 +6,8 @@
   /* Soft Black/Charcoal */
   --color-text-muted: #586069;
   /* Muted Grey */
-  --color-accent-sage: #8DA399;
-  /* Sage Green */
+  --color-accent-sage: #496556;
+  /* Dark Sage Green for WCAG Contrast */
   --color-accent-blue: #A4B8C4;
   /* Muted Blue */
   --color-accent-earth: #C2B280;
@@ -103,8 +103,8 @@ button {
 }
 
 .btn-primary:hover {
-  background-color: #7A8F85;
-  /* Slightly darker sage */
+  background-color: #384D41;
+  /* Darker sage */
   transform: translateY(-1px);
   box-shadow: var(--shadow-hover);
 }
@@ -114,9 +114,23 @@ button {
 }
 
 @keyframes flashButton {
-  0% { box-shadow: 0 0 5px rgba(141, 163, 153, 0.4); opacity: 1; text-shadow: none; }
-  50% { box-shadow: 0 0 20px rgba(141, 163, 153, 1); opacity: 0.85; text-shadow: 0 0 5px rgba(255,255,255,0.5); }
-  100% { box-shadow: 0 0 5px rgba(141, 163, 153, 0.4); opacity: 1; text-shadow: none; }
+  0% {
+    box-shadow: 0 0 5px rgba(141, 163, 153, 0.4);
+    opacity: 1;
+    text-shadow: none;
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(141, 163, 153, 1);
+    opacity: 0.85;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+
+  100% {
+    box-shadow: 0 0 5px rgba(141, 163, 153, 0.4);
+    opacity: 1;
+    text-shadow: none;
+  }
 }
 
 .btn-secondary {
