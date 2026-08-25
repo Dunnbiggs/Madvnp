@@ -473,10 +473,180 @@ button {
   margin-bottom: var(--space-sm);
 }
 
+/* Conditions Treated — dual-row scrolling band */
+.conditions {
+  background-color: #F1EDE4;
+  /* Warm linen, one step deeper than the page background */
+  border-top: 1px solid #E4DCCB;
+  border-bottom: 1px solid #E4DCCB;
+  margin-top: var(--space-xl);
+  overflow: hidden;
+  /* Belt and braces: the rows can never widen the page */
+}
+
+.conditions .section-subtitle {
+  margin-bottom: var(--space-lg);
+}
+
+.condition-rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.condition-marquee {
+  overflow: hidden;
+  /* Fade the ends so cards appear and vanish instead of clipping */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.condition-track {
+  display: flex;
+  width: max-content;
+  animation-name: conditionScroll;
+  animation-duration: var(--duration, 40s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.condition-marquee[data-reverse="true"] .condition-track {
+  animation-direction: reverse;
+}
+
+.condition-group {
+  display: flex;
+  align-items: stretch;
+  flex: none;
+  gap: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+@keyframes conditionScroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-1 * var(--distance, 1200px)), 0, 0);
+  }
+}
+
+/* Let anyone who wants to actually read the list stop it */
+.condition-marquee:hover .condition-track {
+  animation-play-state: paused;
+}
+
+.condition-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  white-space: nowrap;
+  background-color: var(--color-white);
+  border: 1px solid #E8E2D6;
+  border-left: 3px solid var(--color-accent-sage);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1.25rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.condition-marquee[data-reverse="true"] .condition-card {
+  border-left-color: var(--color-accent-earth);
+}
+
+.condition-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-main);
+  line-height: 1.3;
+}
+
+.condition-tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.conditions-note {
+  margin-top: var(--space-lg);
+  color: var(--color-text-muted);
+}
+
+.conditions-note a {
+  color: var(--color-accent-sage);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.conditions-note a:hover {
+  color: #384D41;
+}
+
+/* Available to screen readers and search engines, invisible on screen */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Motion sensitivity is common in the people this practice serves.
+   With reduced motion on, the rows stop and lay out as a static wrapped list. */
+@media (prefers-reduced-motion: reduce) {
+  .condition-marquee {
+    overflow: visible;
+    padding: 0 var(--space-md);
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .condition-track {
+    animation: none;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .condition-track .condition-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .condition-group {
+    flex: 1 1 100%;
+    min-width: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  /* One static list is enough — the second row would just repeat it */
+  .condition-marquee[data-reverse="true"] {
+    display: none;
+  }
+}
+
 /* Responsive Component Adjustments */
 @media (max-width: 768px) {
   .about-grid {
     grid-template-columns: 1fr;
+  }
+
+  .condition-card {
+    padding: 0.6rem 1rem;
+  }
+
+  .condition-name {
+    font-size: 0.95rem;
   }
 
   .about-content .section-title {
