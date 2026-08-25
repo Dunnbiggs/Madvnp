@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 /**
  * Conditions treated. Edit this array to add, remove, or rename an item —
@@ -56,19 +56,27 @@ const InsurerCard = ({ name }) => (
  * pixels-per-second no matter the screen size or how many items are listed.
  */
 const Row = ({ items, speed, reverse, renderItem }) => {
+    const frameRef = useRef(null)
     const trackRef = useRef(null)
     const groupRef = useRef(null)
+    const [copies, setCopies] = useState(2)
 
     useEffect(() => {
+        const frame = frameRef.current
         const track = trackRef.current
         const group = groupRef.current
-        if (!track || !group) return undefined
+        if (!frame || !track || !group) return undefined
 
         const measure = () => {
             const distance = group.getBoundingClientRect().width
             if (!distance) return
             track.style.setProperty('--distance', `${distance}px`)
             track.style.setProperty('--duration', `${distance / speed}s`)
+            // Cover the visible frame plus one copy of travel so the tail
+            // never empties on a wide display before the loop restarts.
+            const frameWidth = frame.getBoundingClientRect().width
+            const next = Math.max(2, Math.ceil(frameWidth / distance) + 1)
+            setCopies((n) => (n === next ? n : next))
         }
 
         measure()
@@ -77,6 +85,7 @@ const Row = ({ items, speed, reverse, renderItem }) => {
         if (typeof ResizeObserver !== 'undefined') {
             observer = new ResizeObserver(measure)
             observer.observe(group)
+            observer.observe(frame)
         } else {
             window.addEventListener('resize', measure)
         }
@@ -94,10 +103,12 @@ const Row = ({ items, speed, reverse, renderItem }) => {
     const group = items.map(renderItem)
 
     return (
-        <div className="condition-marquee" data-reverse={reverse ? 'true' : undefined}>
+        <div className="condition-marquee" ref={frameRef} data-reverse={reverse ? 'true' : undefined}>
             <div className="condition-track" ref={trackRef}>
                 <div className="condition-group" ref={groupRef}>{group}</div>
-                <div className="condition-group" aria-hidden="true">{group}</div>
+                {Array.from({ length: copies - 1 }, (_, i) => (
+                    <div className="condition-group" aria-hidden="true" key={i}>{group}</div>
+                ))}
             </div>
         </div>
     )
