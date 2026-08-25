@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 
 /**
- * Conditions treated. Edit this one array to add, remove, or rename an item —
- * both rows and the screen-reader list are generated from it.
+ * Conditions treated. Edit this array to add, remove, or rename an item —
+ * the visible row and the screen-reader list are both generated from it.
  */
 const CONDITIONS = [
     { name: 'Depression', tag: 'Mood' },
@@ -17,31 +17,45 @@ const CONDITIONS = [
     { name: 'Medication Management', tag: 'Ongoing care' }
 ]
 
-/* Row two starts halfway through the list so the two rows never mirror each other. */
-const ROW_ONE = CONDITIONS
-const ROW_TWO = CONDITIONS.slice(5).concat(CONDITIONS.slice(0, 5))
+/**
+ * Insurance plans this practice is credentialed with. Leading with the
+ * largest carriers, since those names are what people scan for.
+ * Keep this list current — an expired plan listed here is a bad first visit.
+ */
+const INSURERS = [
+    'Aetna',
+    'Anthem Blue Cross California',
+    'Blue Shield of California',
+    'Cigna',
+    'United Healthcare (Optum)',
+    'Oxford (Optum)',
+    'Medi-Cal',
+    'Medicare',
+    'Magellan',
+    'Carelon Behavioral Health',
+    'Providence Health Plan',
+    'Blue Cross Blue Shield of Massachusetts'
+]
 
-const Card = ({ item }) => (
+const ConditionCard = ({ item }) => (
     <span className="condition-card">
         <span className="condition-name">{item.name}</span>
         <small className="condition-tag">{item.tag}</small>
     </span>
 )
 
-const Group = ({ items, hidden }) => (
-    <div className="condition-group" aria-hidden={hidden ? 'true' : undefined}>
-        {items.map((item) => (
-            <Card key={item.name} item={item} />
-        ))}
-    </div>
+const InsurerCard = ({ name }) => (
+    <span className="condition-card insurer-card">
+        <span className="condition-name">{name}</span>
+    </span>
 )
 
 /**
- * One scrolling row. The animation distance is measured from the rendered content
- * and the duration is derived from it, so every row travels at the same
- * pixels-per-second regardless of screen size or how many conditions are listed.
+ * One scrolling row. The travel distance is measured from the rendered content
+ * and the duration derived from it, so every row moves at the same
+ * pixels-per-second no matter the screen size or how many items are listed.
  */
-const Row = ({ items, speed, reverse }) => {
+const Row = ({ items, speed, reverse, renderItem }) => {
     const trackRef = useRef(null)
     const groupRef = useRef(null)
 
@@ -77,15 +91,13 @@ const Row = ({ items, speed, reverse }) => {
         }
     }, [speed])
 
+    const group = items.map(renderItem)
+
     return (
         <div className="condition-marquee" data-reverse={reverse ? 'true' : undefined}>
             <div className="condition-track" ref={trackRef}>
-                <div className="condition-group" ref={groupRef}>
-                    {items.map((item) => (
-                        <Card key={item.name} item={item} />
-                    ))}
-                </div>
-                <Group items={items} hidden />
+                <div className="condition-group" ref={groupRef}>{group}</div>
+                <div className="condition-group" aria-hidden="true">{group}</div>
             </div>
         </div>
     )
@@ -97,32 +109,51 @@ const Conditions = () => {
             <div className="container">
                 <h2 id="conditions-title" className="section-title">Conditions I Treat</h2>
                 <p className="section-subtitle">
-                    Evaluation, diagnosis, and ongoing medication management for adults
-                    anywhere in California — by secure video, with most major insurance accepted.
+                    Evaluation, diagnosis, and ongoing medication management for children,
+                    adults, and older adults anywhere in California — by secure video.
                 </p>
             </div>
 
-            {/* Visible, animated rows. Hidden from assistive tech so the list is
-                announced once, from the plain list below, instead of four times. */}
-            <div className="condition-rows" aria-hidden="true">
-                <Row items={ROW_ONE} speed={38} />
-                <Row items={ROW_TWO} speed={32} reverse />
+            {/* Animated row, hidden from assistive tech; the plain list below carries
+                the meaning so nothing is announced twice. */}
+            <div aria-hidden="true">
+                <Row
+                    items={CONDITIONS}
+                    speed={38}
+                    renderItem={(item) => <ConditionCard key={item.name} item={item} />}
+                />
+            </div>
+            <ul className="visually-hidden">
+                {CONDITIONS.map((item) => <li key={item.name}>{item.name}</li>)}
+            </ul>
+
+            <div id="insurance" className="container conditions-divider">
+                <h3 className="conditions-subhead">Insurance I Accept</h3>
+                <p className="conditions-subnote">
+                    I&apos;ll verify your coverage when you schedule, so you know your cost
+                    before the first visit.
+                </p>
             </div>
 
-            {/* The same list, read by screen readers and indexed by search engines. */}
+            <div aria-hidden="true">
+                <Row
+                    items={INSURERS}
+                    speed={42}
+                    reverse
+                    renderItem={(name) => <InsurerCard key={name} name={name} />}
+                />
+            </div>
             <ul className="visually-hidden">
-                {CONDITIONS.map((item) => (
-                    <li key={item.name}>{item.name}</li>
-                ))}
+                {INSURERS.map((name) => <li key={name}>{name}</li>)}
             </ul>
 
             <div className="container text-center">
                 <p className="conditions-note">
-                    Not sure whether your situation fits?{' '}
+                    Don&apos;t see your plan, or not sure whether your situation fits?{' '}
                     <a href="https://d2oe0ra32qx05a.cloudfront.net/?practiceKey=k_1_106361">
                         Book an evaluation
                     </a>{' '}
-                    and we&apos;ll figure it out together.
+                    or call (909)&nbsp;755-6610.
                 </p>
             </div>
         </section>

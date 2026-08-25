@@ -573,6 +573,29 @@ button {
   line-height: 1.4;
 }
 
+/* Divider between the conditions row and the insurance row */
+.conditions-divider {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+.conditions-subhead {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.conditions-subnote {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* Insurance cards carry no category label, so centre the single line */
+.insurer-card {
+  justify-content: center;
+  border-left-color: var(--color-accent-earth);
+}
+
 .conditions-note {
   margin-top: var(--space-lg);
   color: var(--color-text-muted);
@@ -586,6 +609,97 @@ button {
 
 .conditions-note a:hover {
   color: #384D41;
+}
+
+/* FAQ */
+.faq {
+  max-width: 860px;
+}
+
+.faq .section-subtitle {
+  margin-bottom: var(--space-lg);
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.faq-item {
+  background: var(--color-white);
+  border: 1px solid #E8E2D6;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: box-shadow var(--transition-fast);
+}
+
+.faq-item[open] {
+  box-shadow: var(--shadow-hover);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--color-text-main);
+  list-style: none;
+}
+
+/* Hide the default disclosure triangle in both engines */
+.faq-question::-webkit-details-marker {
+  display: none;
+}
+
+.faq-question::marker {
+  content: "";
+}
+
+.faq-question:hover {
+  color: var(--color-accent-sage);
+}
+
+.faq-question:focus-visible {
+  outline: 2px solid var(--color-accent-sage);
+  outline-offset: -2px;
+  border-radius: var(--radius-md);
+}
+
+.faq-chevron {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--color-accent-sage);
+  transition: transform var(--transition-fast);
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+.faq-answer {
+  margin: 0 var(--space-md);
+  padding: var(--space-sm) 0 var(--space-md);
+  border-top: 1px solid #F0EBE1;
+  color: #4A4A4A;
+}
+
+.faq-answer p+p {
+  margin-top: 0.75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-chevron {
+    transition: none;
+  }
 }
 
 /* Available to screen readers and search engines, invisible on screen */
@@ -629,9 +743,8 @@ button {
     padding-right: 0;
   }
 
-  /* One static list is enough — the second row would just repeat it */
-  .condition-marquee[data-reverse="true"] {
-    display: none;
+  .condition-rows {
+    gap: var(--space-md);
   }
 }
 
