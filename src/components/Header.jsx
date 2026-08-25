@@ -12,6 +12,7 @@ const Header = () => {
             </div>
             <nav className="header-nav">
                 <a href="#about">About</a>
+                <a href="#conditions">Conditions</a>
                 <a href="#approach">Approach</a>
                 <a href="#faq">FAQ</a>
                 <a href="https://d2oe0ra32qx05a.cloudfront.net/?practiceKey=k_1_106361" className="btn btn-primary btn-flash">Book Appointment</a>
