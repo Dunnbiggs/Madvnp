@@ -76,7 +76,14 @@
   <!-- Preconnect to Google Analytics/Tag Manager to avoid DNS lookup delays -->
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
-  <script type="module" crossorigin src="/assets/index-DxO7hTSl.js"></script>
+
+  <!-- Brand typefaces. index.css asks for Outfit and Inter; without this they
+       silently fall back to the system sans. display=swap so text paints immediately. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
+  <script type="module" crossorigin src="/assets/index-BDy6x3Up.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/vendor-TH_OxIOI.js">
   <link rel="stylesheet" crossorigin href="/assets/index-bt9NagoL.css">
 </head>
