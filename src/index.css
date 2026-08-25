@@ -770,3 +770,26 @@ button {
     text-align: center;
   }
 }
+
+/* Very small phones (320-400px).
+   The hero is a flex container, so .hero-content cannot shrink below its
+   min-content width - which is set by the longest word in the headline,
+   "Compassionate". At 2.5rem that word plus the surrounding padding is wider
+   than a 320px screen, and the whole page scrolls sideways. Dropping the
+   headline a step and tightening the horizontal padding gives it room. */
+@media (max-width: 400px) {
+  .hero {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+  .hero-headline {
+    font-size: 1.9rem;
+  }
+  .container {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+}
