@@ -1,5 +1,6 @@
 import React from 'react'
 import { FAQS } from '../data/faqs'
+import useInView from '../hooks/useInView'
 
 /**
  * Frequently asked questions.
@@ -9,18 +10,31 @@ import { FAQS } from '../data/faqs'
  * (see vite.config.js), so the markup and the visible page can never disagree.
  */
 const FAQ = () => {
+    const [ref, inView] = useInView()
+
     return (
-        <section id="faq" className="section container faq" aria-labelledby="faq-title">
-            <h2 id="faq-title" className="section-title">Frequently Asked Questions</h2>
-            <p className="section-subtitle">
+        <section
+            id="faq"
+            className={`section container faq${inView ? ' in' : ''}`}
+            aria-labelledby="faq-title"
+            ref={ref}
+        >
+            <h2 id="faq-title" className="section-title" data-reveal>Frequently Asked Questions</h2>
+            <p className="section-subtitle" data-reveal style={{ transitionDelay: '0.08s' }}>
                 If your question is not here, call (909) 755-6610 and ask.
             </p>
 
             <div className="faq-list">
-                {FAQS.map((item) => (
+                {FAQS.map((item, index) => (
                     /* name="faq" makes this an exclusive accordion natively where the
                        browser supports it; older browsers simply allow several open. */
-                    <details className="faq-item" key={item.q} name="faq">
+                    <details
+                        className="faq-item"
+                        key={item.q}
+                        name="faq"
+                        data-reveal={index % 2 === 0 ? 'left' : 'right'}
+                        style={{ transitionDelay: `${index * 0.06}s` }}
+                    >
                         <summary className="faq-question">
                             <span>{item.q}</span>
                             <svg className="faq-chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false">

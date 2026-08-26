@@ -793,3 +793,267 @@ button {
     font-size: 2rem;
   }
 }
+
+/* ============================================================
+   Scroll reveals
+   ------------------------------------------------------------
+   One IntersectionObserver per section (src/hooks/useInView.js)
+   adds `in` to the section; everything below is plain CSS
+   transitions. No animation library, nothing in the bundle.
+   Sideways travel is the part to be careful with: an element
+   parked 52px to the right makes the whole page scroll unless
+   its section clips, so .section clips on the x axis. `clip`
+   rather than `hidden` — it does not create a scroll container.
+   ============================================================ */
+:root {
+  --ease-motion: cubic-bezier(0.22, 0.68, 0.3, 1);
+  --reveal-slide: 52px;
+}
+
+.section {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition: opacity 0.7s var(--ease-motion), transform 0.7s var(--ease-motion);
+}
+
+[data-reveal="left"] {
+  transform: translate3d(calc(-1 * var(--reveal-slide)), 0, 0);
+}
+
+[data-reveal="right"] {
+  transform: translate3d(var(--reveal-slide), 0, 0);
+}
+
+.in [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+/* 1 — Hero: the headline arrives a word at a time */
+.hero-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.in .hero-word {
+  animation: heroWordUp 0.62s var(--ease-motion) forwards;
+}
+
+@keyframes heroWordUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The headline drifts slightly slower than the page as you scroll */
+.hero-drift {
+  will-change: transform;
+}
+
+/* Wrapper so the reveal never fights btn-flash for the opacity property.
+   display:flex keeps the button stretching exactly as it did before, in the
+   row layout and in the stacked one below 768px. */
+.hero-cta-reveal {
+  display: flex;
+}
+
+.hero-cta-reveal>.btn {
+  flex: 1 1 auto;
+}
+
+/* 2 — Conditions: cards enter the way their row travels, and the
+   rows only start moving once the band is on screen. That second
+   part is a real saving: today both rows animate for as long as
+   the page is open, whether or not anyone is looking at them. */
+.condition-track {
+  animation-play-state: paused;
+}
+
+.conditions.in .condition-track {
+  animation-play-state: running;
+}
+
+.conditions .condition-card {
+  opacity: 0;
+  transform: translate3d(60px, 0, 0);
+  transition: opacity 0.55s var(--ease-motion), transform 0.55s var(--ease-motion);
+}
+
+.conditions .condition-marquee[data-reverse="true"] .condition-card {
+  transform: translate3d(-60px, 0, 0);
+}
+
+.conditions.in .condition-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* 3 — About: portrait in from the left, story in from the right,
+   with a sage ring drawing once around the photo */
+.about-portrait {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1/1;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translate3d(calc(-1 * var(--reveal-slide)), 0, 0);
+  transition: opacity 0.85s var(--ease-motion), transform 0.85s var(--ease-motion);
+}
+
+.in .about-portrait {
+  opacity: 1;
+  transform: none;
+}
+
+.about-portrait .about-image {
+  position: absolute;
+  inset: 14px;
+  max-width: none;
+}
+
+.portrait-ring {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.portrait-ring circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.portrait-ring .ring-track {
+  stroke: #E4DCCB;
+}
+
+.portrait-ring .ring-draw {
+  stroke: var(--color-accent-sage);
+  stroke-linecap: round;
+  stroke-dasharray: 1030;
+  stroke-dashoffset: 1030;
+  transition: stroke-dashoffset 1.5s var(--ease-motion) 0.25s;
+}
+
+.in .portrait-ring .ring-draw {
+  stroke-dashoffset: 0;
+}
+
+/* 4 — Approach: the four steps arrive in order and a line draws
+   through them. One direction, not alternating: these are steps
+   1 to 4, so the motion follows the process. */
+.process-grid {
+  position: relative;
+}
+
+/* The rail only makes sense when the four cards are actually side by side.
+   The grid is repeat(auto-fit, minmax(250px, 1fr)), which drops to three
+   columns and then two as the viewport narrows — a straight horizontal line
+   across a wrapped grid would be nonsense, so it is shown only above the
+   width where four columns are guaranteed. */
+.process-rail {
+  display: none;
+  position: absolute;
+  /* Card padding (24px) + half the 40px number = the circles' centre line */
+  top: 44px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 2px;
+  background: #E4DCCB;
+  z-index: 2;
+}
+
+.process-rail span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--color-accent-sage);
+  transition: width 1.6s var(--ease-motion);
+}
+
+.in .process-rail span {
+  width: 100%;
+}
+
+.process-card {
+  position: relative;
+  z-index: 1;
+}
+
+.step-number {
+  position: relative;
+  z-index: 3;
+  transition: background-color 0.45s var(--ease-motion), color 0.45s var(--ease-motion),
+    box-shadow 0.45s var(--ease-motion), transform 0.45s var(--ease-motion);
+}
+
+.process-card:not(.lit) .step-number {
+  background-color: var(--color-white);
+  color: var(--color-text-muted);
+  box-shadow: inset 0 0 0 2px #E4DCCB;
+}
+
+.process-card.lit .step-number {
+  transform: scale(1.08);
+}
+
+/* 5 — FAQ: questions alternate sides, set per item in FAQ.jsx.
+   To settle them on one side instead, change the direction there. */
+@media (max-width: 768px) {
+  /* 52px of sideways travel reads as a lurch on a phone */
+  :root {
+    --reveal-slide: 28px;
+  }
+}
+
+@media (min-width: 1150px) {
+  .process-rail {
+    display: block;
+  }
+}
+
+/* Motion sensitivity is common among the people this practice serves.
+   With reduced motion on, everything is simply already in place. */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .conditions .condition-card,
+  .about-portrait {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-word {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .hero-drift {
+    transform: none !important;
+  }
+
+  .portrait-ring .ring-draw {
+    stroke-dashoffset: 0 !important;
+    transition: none !important;
+  }
+
+  .process-rail span {
+    width: 100% !important;
+    transition: none !important;
+  }
+
+  .step-number {
+    transition: none !important;
+  }
+}

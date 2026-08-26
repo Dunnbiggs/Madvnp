@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import useInView from '../hooks/useInView'
 
 /**
  * Conditions treated. Edit this array to add, remove, or rename an item —
@@ -37,15 +38,19 @@ const INSURERS = [
     'Blue Cross Blue Shield of Massachusetts'
 ]
 
-const ConditionCard = ({ item }) => (
-    <span className="condition-card">
+/* Cards fade in staggered when the band arrives. Only the first copy of each
+   row is staggered — the duplicates are off screen when it plays. */
+const stagger = (index) => ({ transitionDelay: `${Math.min(index, 12) * 0.05}s` })
+
+const ConditionCard = ({ item, index }) => (
+    <span className="condition-card" style={stagger(index)}>
         <span className="condition-name">{item.name}</span>
         <small className="condition-tag">{item.tag}</small>
     </span>
 )
 
-const InsurerCard = ({ name }) => (
-    <span className="condition-card insurer-card">
+const InsurerCard = ({ name, index }) => (
+    <span className="condition-card insurer-card" style={stagger(index)}>
         <span className="condition-name">{name}</span>
     </span>
 )
@@ -115,11 +120,18 @@ const Row = ({ items, speed, reverse, renderItem }) => {
 }
 
 const Conditions = () => {
+    const [ref, inView] = useInView()
+
     return (
-        <section id="conditions" className="section conditions" aria-labelledby="conditions-title">
+        <section
+            id="conditions"
+            className={`section conditions${inView ? ' in' : ''}`}
+            aria-labelledby="conditions-title"
+            ref={ref}
+        >
             <div className="container">
-                <h2 id="conditions-title" className="section-title">Conditions I Treat</h2>
-                <p className="section-subtitle">
+                <h2 id="conditions-title" className="section-title" data-reveal>Conditions I Treat</h2>
+                <p className="section-subtitle" data-reveal style={{ transitionDelay: '0.08s' }}>
                     Evaluation, diagnosis, and ongoing medication management for children,
                     adults, and older adults anywhere in California — by secure video.
                 </p>
@@ -131,7 +143,7 @@ const Conditions = () => {
                 <Row
                     items={CONDITIONS}
                     speed={38}
-                    renderItem={(item) => <ConditionCard key={item.name} item={item} />}
+                    renderItem={(item, index) => <ConditionCard key={item.name} item={item} index={index} />}
                 />
             </div>
             <ul className="visually-hidden">
@@ -139,8 +151,8 @@ const Conditions = () => {
             </ul>
 
             <div id="insurance" className="container conditions-divider">
-                <h3 className="conditions-subhead">Insurance I Accept</h3>
-                <p className="conditions-subnote">
+                <h3 className="conditions-subhead" data-reveal>Insurance I Accept</h3>
+                <p className="conditions-subnote" data-reveal style={{ transitionDelay: '0.08s' }}>
                     I&apos;ll verify your coverage when you schedule, so you know your cost
                     before the first visit.
                 </p>
@@ -151,7 +163,7 @@ const Conditions = () => {
                     items={INSURERS}
                     speed={42}
                     reverse
-                    renderItem={(name) => <InsurerCard key={name} name={name} />}
+                    renderItem={(name, index) => <InsurerCard key={name} name={name} index={index} />}
                 />
             </div>
             <ul className="visually-hidden">
@@ -159,7 +171,7 @@ const Conditions = () => {
             </ul>
 
             <div className="container text-center">
-                <p className="conditions-note">
+                <p className="conditions-note" data-reveal style={{ transitionDelay: '0.3s' }}>
                     Don&apos;t see your plan, or not sure whether your situation fits?{' '}
                     <a href="https://d2oe0ra32qx05a.cloudfront.net/?practiceKey=k_1_106361">
                         Book an evaluation
