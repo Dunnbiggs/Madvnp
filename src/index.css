@@ -1057,3 +1057,47 @@ button {
     transition: none !important;
   }
 }
+
+/* Social links in the footer. 44px targets so they are comfortable on a
+   phone, and a visible focus ring since these are the only links down here
+   a keyboard user is likely to tab to. */
+.social-links {
+  list-style: none;
+  display: flex;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;
+  /* pull the first icon back level with the heading above it */
+  border-radius: 50%;
+  color: #D1D5DB;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.social-links li:not(:first-child) .social-link {
+  margin-left: 0;
+}
+
+.social-link svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.social-link:hover {
+  color: var(--color-white);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.social-link:focus-visible {
+  outline: 2px solid var(--color-accent-blue);
+  outline-offset: 2px;
+}
