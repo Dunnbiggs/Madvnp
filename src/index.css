@@ -473,6 +473,22 @@ button {
   margin-bottom: var(--space-sm);
 }
 
+/*
+ * Crisis numbers are dial/text links, not plain text — on a phone, which is
+ * where most of this traffic reads it, the number should be one tap away.
+ * Underlined so it is visibly actionable without breaking the sentence.
+ */
+.crisis-link {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+.crisis-link:hover,
+.crisis-link:focus-visible {
+  opacity: 0.8;
+}
+
 /* Conditions Treated — dual-row scrolling band */
 .conditions {
   background-color: #F1EDE4;

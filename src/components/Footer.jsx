@@ -79,7 +79,13 @@ const Footer = () => {
             </div>
             <div className="footer-bottom container text-center">
                 <p className="emergency-note">
-                    <strong>If you are experiencing a medical emergency or crisis, please dial 911 or call/text 988 immediately.</strong>
+                    <strong>
+                        If you are experiencing a medical emergency or crisis, please dial{' '}
+                        <a href="tel:911" className="crisis-link" aria-label="Call 911">911</a> or{' '}
+                        <a href="tel:988" className="crisis-link" aria-label="Call the 988 Suicide and Crisis Lifeline">call</a>/
+                        <a href="sms:988" className="crisis-link" aria-label="Text the 988 Suicide and Crisis Lifeline">text</a>{' '}
+                        <a href="tel:988" className="crisis-link" aria-label="Call 988">988</a> immediately.
+                    </strong>
                 </p>
                 <p>&copy; {new Date().getFullYear()} Marshall Advanced Nursing Practice PC. All rights reserved.</p>
             </div>
